@@ -1,13 +1,229 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* all-application */
+*{
+  margin : 0;
+  padding : 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+button{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Principal div  */
+.editor-head{
+display: flex;
+justify-content: space-between;
+padding: 12px;
+border-bottom: 1px solid rgb(202, 198, 198);
+}
+
+.head-right-items{
+display: flex;  
+}
+.head-right-items button {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+.head-right-items h3{
+  margin: auto;
+  margin-left: 30px;
+  margin-top: 10px;
+  border-left: 2px solid rgb(202, 198, 198);
+  padding-left:20px ;
+}
+
+.head-left-items{
+  display: flex;
+}
+
+.editor-body{
+display: flex;
+}
+
+.Editing-tool{
+padding: 10px;
+border-right : 1px solid  rgb(202, 198, 198);
+height: 92vh;
+
+}
+
+.Editing-tool h3 {
+margin: auto;
+margin-left:20px;
+text-transform: uppercase;
+}
+
+.top-tool-items{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+.top-tool-items button{
+  margin: 20px;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+.top-tool-items button.active{
+  color:  rgba(0, 0, 255, 0.971);
+  font-weight: 800;
+}
+
+
+.bottom-tool-items{
+border-top: 1px solid  rgb(202, 198, 198);
+}
+.bottom-tool-items h4{
+  margin: 10px 50px;
+  color:  rgb(96, 96, 96);
+}
+
+.rotate-button{
+  font-size: 22px;
+  margin: 10px;
+  cursor: pointer;
+}
+.r-button{
+  border-left: 1px solid   rgb(202, 198, 198);
+  padding-left: 20px;
+}
+.crop-resize{
+  padding: 18px;
+border-right : 1px solid  rgb(202, 198, 198);
+height: 92vh;
+width: 20%;
+}
+
+.label-bar{
+margin-top: 30px;
+display: flex;
+flex-direction: column;
+}
+
+.label-bar input {
+  width: 230px;
+}
+.crop-prop{
+  margin-top: 20px;
+}
+.crop-button{
+  background-color: rgba(0, 0, 255, 0.971);
+  border-radius: 30px;
+  padding: 10px 30px;
+  color: white;
+  margin: 10px 20px;
+
+}
+.resize-prop{
+margin-top: 30px;
+border-top: 1px solid  rgb(202, 198, 198);
+padding-top:20px ;
+}
+
+.size-form{
+  margin-top: 30px;
+}
+
+.size{
+width: 40px;
+border: none;
+}
+
+.size:focus{
+  border: none;
+  outline: none;
+}
+.image-view{
+  background-color: #f0f0f0;
+  width: 61% ;
+}
+
+.image{
+height: 100%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.image img{
+  object-fit: scale-down;
+  transition: all .5s;
+  height: 100%;
+  width: 90%;
+}
+
+.image-upload{
+display: none;
+}
+
+.image label{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+
+/* Specific stylesheet */
+
+.aiOutlineCloseButton{
+  width: 20px;
+  height: 25px;
+}
+
+.revert{
+  margin: auto;
+}
+
+.aioutline-button{
+  margin: auto 50px ;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-left: 2px solid rgb(202, 198, 198);
+  border-right: 2px solid rgb(202, 198, 198);
+
+}
+
+.space{
+  margin:0 20px;
+}
+.icon-space{
+  margin: auto 10px;
+  margin-top: 2px;
+}
+
+.cancel-button{
+color: skyblue;
+padding: 10px;
+margin: auto 10px;
+}
+
+.Save-button{
+  background-color: rgba(0, 0, 255, 0.971);
+  border-radius: 30px;
+  padding: 10px 30px;
+  color: white;
+  margin: auto 20px;
+  
+}
+
+.resize-button{
+  background-color:white;
+  border: 0.5px solid  ;
+  border-radius: 30px;
+  padding: 5px 10px;
+  color:  rgba(0, 0, 255, 0.971);
+  margin: auto ;
+  
 }
