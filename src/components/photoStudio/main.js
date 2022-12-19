@@ -1,11 +1,11 @@
 import React,{useEffect, useState} from 'react'
-import {AiOutlineClose,AiOutlineRedo,AiOutlineUndo,AiOutlineRotateLeft,AiOutlineRotateRight} from 'react-icons/ai';
+import {AiOutlineClose,AiOutlineRotateLeft,AiOutlineRotateRight} from 'react-icons/ai';
 import { CgEditFlipH,CgEditFlipV} from 'react-icons/cg';
 import {RiArrowGoBackFill,RiArrowGoForwardFill} from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toolCard } from './toolCard';
-import {ImContrast,ImBrightnessContrast} from 'react-icons/im';
 import ReactCrop from 'react-image-crop';
+import Resizer from "react-image-file-resizer";
 import 'react-image-crop/dist/ReactCrop.css'; 
 import storeData from '../link';
 
@@ -28,6 +28,17 @@ const [propity, setPropity]=useState(
     const [imgstate , setImgState]= useState(
         {
             image : '',
+            Brightness:100,
+            Contrast: 100,
+            Saturate:100,
+            rotate :0,
+            vertical : 1, 
+            horizontal:1,
+        }
+    )
+
+    const [state , setState]= useState(
+        {
             Brightness:100,
             Contrast: 100,
             Saturate:100,
@@ -146,6 +157,19 @@ const next = ()=>{
 
 const saveImage = ()=>{}
 
+
+const resetImage = ()=>{
+    setImgState ({
+        ...imgstate,
+        Brightness:100,
+        Contrast: 100,
+        Saturate:100,
+        rotate :0,
+        vertical : 1, 
+        horizontal:1,
+})
+} 
+
     // input handle Change function
  const inputHandle = (e)=>{
     setImgState(    {
@@ -191,6 +215,8 @@ const sizeHandleChange = (e)=>{
 } 
 
 
+
+
 // Card of editing tool sidebar
      const tool = toolCard.map((items) => {return (
         <button className={propity.name === items.name ? 'active' : '' } 
@@ -207,7 +233,7 @@ const sizeHandleChange = (e)=>{
                 </div>
                 <div className='head-left-items'>
                     <div className = "revert">
-                        <button>Revert to Original</button>
+                        <button onClick={resetImage}>Revert to Original</button>
                     </div>
                     <div className='aioutline-button'>
                         <button onClick={previous}><RiArrowGoBackFill className='aiOutlineCloseButton space'/></button>
@@ -238,8 +264,9 @@ const sizeHandleChange = (e)=>{
                     </div>
                 </div>
             {/* tool-proprity */}
-                <div className='crop-resize'>
-                    <h4>Crop and Resize</h4>
+             <div className='crop-resize'>
+             {propity.name ==="crop and resize" ?<div>
+                <h4>Crop and Resize</h4>
                     <div className='crop-prop' > 
                         <h5>Crop </h5>
                     <button className='crop-button' onClick={imageCrop}> Crop image </button>
@@ -256,6 +283,7 @@ const sizeHandleChange = (e)=>{
                         <button className="resize-button">Resize image</button>
                         </form>
                     </div>
+                    </div>:
                    <div className='label-bar'>
                     <label htmlFor='range'>{propity.name}</label>
                     <input name={propity.name}
@@ -263,7 +291,7 @@ const sizeHandleChange = (e)=>{
                      type="range"
                      value={imgstate[propity.name]} 
                      max={propity.maxValue} />
-                   </div>
+                   </div>}
                 </div>
 
                 {/* image-editor-view */}
