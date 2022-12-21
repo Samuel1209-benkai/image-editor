@@ -3,9 +3,10 @@
   margin : 0;
   padding : 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
+/* Photo Editor style */
 
 button{
   background: none;
@@ -178,8 +179,9 @@ display: none;
 /* Specific stylesheet */
 
 .aiOutlineCloseButton{
-  width: 20px;
+  width: 25px;
   height: 25px;
+  
 }
 
 .revert{
@@ -226,4 +228,141 @@ margin: auto 10px;
   color:  rgba(0, 0, 255, 0.971);
   margin: auto ;
   
+}
+
+/* Side Style */
+nav{
+  width:600px;
+  background:#D3DCEC;
+  padding: 20px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.upload-button{
+  display: flex;
+  font-weight:600;
+  margin: 30px 5px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  color: #FFFFFF;
+  background: rgba(0, 0, 255, 0.971); ;
+}
+.Manage{
+  border-top:1px solid rgb(202, 198, 198) ;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Manage p{
+  color: #4c4d4e;
+  margin: 10px 0px;
+}
+
+.Manage button{
+  text-align: start;
+  border: none;
+  margin: 10px 0px;  
+}
+/* header Style */
+
+/* Galery style */
+
+.single-image {
+    border-radius: 34;
+  
+}
+
+.singleImage:hover {
+  padding: 5px;
+  transition: 0.9s;
+  transform: scale(
+    1.0
+  );
+opacity: 0.5 ;
+}
+
+.gallery-container{
+  height: 90vh;
+  overflow: scroll;
+-webkit-column-count: 3;
+-moz-column-count: 3;
+column-count: 3;
+-webkit-column-width: 13%;
+-moz-column-width: 13%;
+column-width:13% ;
+padding: 0 12px;
+display: grid;
+grid-template-columns: auto auto auto ;
+}
+
+.image-container{
+  -webkit-transition: all 350ms ease;
+  transition: all 350ms ease;
+  cursor: pointer;
+  margin: 5px;
+  border: 1px solid #4c4d4e;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width:991px){
+  .gallery-container{
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-width: 23%;
+    -moz-column-width: 23%;
+    column-width:23% ;
+    padding: 0 12px;
+    }
+}
+
+
+/* Gallery model */
+
+.model{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #000000;
+  transition:opacity .4s ease , visibility .4s ease transform .5s ease-in-out ;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0);
+  overflow: hidden;
+  z-index: 999;
+}
+
+.model-open{
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.model img{
+  width: auto;
+  max-width: 50%;
+  height: auto;
+  max-height: 50%;
+  display: block;
+  line-height: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.model-open .close{
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 5px;
+  color: #992a2a;
+  cursor: pointer;
 }

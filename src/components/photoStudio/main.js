@@ -1,24 +1,22 @@
-import React,{useEffect, useState} from 'react'
-import {AiOutlineClose,AiOutlineRotateLeft,AiOutlineRotateRight} from 'react-icons/ai';
+import React,{ useState} from 'react'
+import {AiOutlineRotateLeft,AiOutlineRotateRight} from 'react-icons/ai';
 import { CgEditFlipH,CgEditFlipV} from 'react-icons/cg';
 import {RiArrowGoBackFill,RiArrowGoForwardFill} from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { toolCard } from './toolCard';
 import ReactCrop from 'react-image-crop';
-import Resizer from "react-image-file-resizer";
+// import Resizer from "react-image-file-resizer"; 
 import 'react-image-crop/dist/ReactCrop.css'; 
-import storeData from '../link';
+import storeData from './link';
 
 
-function PhotoEditor() {
+function PhotoEditor(props) {
 
     const [size,setSize] = useState({
         height :"",
         width :"",
     })
-    // useEffect(()=>{
-    //     setSize('');
-    // },[size])
 
 const [propity, setPropity]=useState(
     {
@@ -36,6 +34,8 @@ const [propity, setPropity]=useState(
             horizontal:1,
         }
     )
+
+    const [ImageGallery , setImageGallery] =useState( props.data)
 
     const [state , setState]= useState(
         {
@@ -109,7 +109,6 @@ const horizontalFlip = ()=>{
 
 const imageCrop =()=>{
     const canvas = document.createElement('canvas');
-    console.log(detail.width); 
     const scaleX = detail.naturalWidth / detail.width 
     const scaleY = detail.naturalHeight / detail.height
     canvas.width = crop.width
@@ -155,7 +154,33 @@ const next = ()=>{
     console.log('next');
 }
 
-const saveImage = ()=>{}
+const saveImage = ()=>{
+    const canvas = document.createElement('canvas');
+    canvas.width = detail.naturalWidth
+    canvas.height = detail.naturalHeight
+    const ctx = canvas.getContext('2d')
+
+    ctx.filter = `brightness(${imgstate.Brightness}%)
+    contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
+    ctx.translate = (canvas.width/2, canvas.height/2)
+    ctx.rotate(imgstate.rotate*Math.PI / 100)
+    ctx.scale(imgstate.vertical , imgstate.horizontal)
+
+    ctx.drawImage(
+        detail,
+    -canvas.width / 1000,
+    -canvas.height / 1000 ,
+        canvas.width,
+        canvas.height
+        )
+
+    const link = document.createElement('a')
+    link.download ="image_edit.jpg"
+    link.href = canvas.toDataURL()
+    link.click()
+    
+    
+}
 
 
 const resetImage = ()=>{
@@ -228,7 +253,7 @@ const sizeHandleChange = (e)=>{
             {/* header */}
             <div className='editor-head'>
                 <div className='head-right-items'>
-                    <button><AiOutlineClose className='aiOutlineCloseButton'/></button>
+                    <button  onClick={props.handleEditClic}><FontAwesomeIcon icon={faXmark} size="xl"  /></button>
                     <h3>Photo Studio</h3>
                 </div>
                 <div className='head-left-items'>
@@ -258,7 +283,6 @@ const sizeHandleChange = (e)=>{
                         <h4>Rotate anf Flip</h4>
                         <button className='rotate-button' onClick={leftRotate} > <AiOutlineRotateLeft /></button>
                         <button className='rotate-button r-button' onClick={rightRotate}> <AiOutlineRotateRight /></button>
-                        {/* <button><FontAwesomeIcon icon="fa-brands fa-react" /></button> */}
                         <button className='rotate-button r-button' onClick={verticalFlip}> <CgEditFlipH /></button>
                         <button className='rotate-button r-button' onClick={horizontalFlip}> <CgEditFlipV /></button>
                     </div>
