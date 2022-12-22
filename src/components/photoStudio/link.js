@@ -35,7 +35,6 @@ class linkList{
             this.current = prevData
             return prevData.data
         }
-        console.log('edit')
     }
     nextEdit(){
         const nextData = this.current.next

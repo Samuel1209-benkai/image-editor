@@ -50,6 +50,7 @@ display: flex;
 padding: 10px;
 border-right : 1px solid  rgb(202, 198, 198);
 height: 92vh;
+width: 20%;
 
 }
 
@@ -97,22 +98,27 @@ border-top: 1px solid  rgb(202, 198, 198);
 }
 .crop-resize{
   padding: 18px;
-border-right : 1px solid  rgb(202, 198, 198);
-height: 92vh;
-width: 20%;
+border-top : 1px solid  rgb(202, 198, 198);
+
+
 }
 
+.crop-and-resize{
+  display: flex;
+  height: 75px;
+}
 .label-bar{
 margin-top: 30px;
 display: flex;
 flex-direction: column;
+width: 100%;
 }
 
 .label-bar input {
-  width: 230px;
+
 }
 .crop-prop{
-  margin-top: 20px;
+ 
 }
 .crop-button{
   background-color: rgba(0, 0, 255, 0.971);
@@ -123,27 +129,36 @@ flex-direction: column;
 
 }
 .resize-prop{
-margin-top: 30px;
-border-top: 1px solid  rgb(202, 198, 198);
-padding-top:20px ;
+border-left: 1px solid  rgb(202, 198, 198);
+padding-left:20px ;
 }
 
 .size-form{
-  margin-top: 30px;
-}
+  margin: 10px;
+ }
 
 .size{
 width: 40px;
-border: none;
+border-radius: 10px;
+margin-right: 10px;
 }
 
 .size:focus{
-  border: none;
+  border:0.5px solid  blue;
   outline: none;
 }
 .image-view{
   background-color: #f0f0f0;
-  width: 61% ;
+  width: 100% ;
+  margin-right: 0px;
+  height: 75vh;
+  
+}
+
+.editor{
+  display: flex;
+  flex-direction: column;
+  width: 82%;
 }
 
 .image{
