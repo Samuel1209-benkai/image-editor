@@ -7,16 +7,16 @@ function Side(props) {
 
     <nav>
       <div className="upload-button">
-        <FontAwesomeIcon icon={faPlus} className="" />
-        <div >
-          <label htmlFor='choose' >
+        <div>
+          <h1>LOGO</h1>
+          {/* <label htmlFor='choose' >
             Upload Media
             <input className='image-upload'
               type="file"
               id='choose'
               placeholder=''
             />
-          </label>
+          </label> */}
         </div>
       </div>
       <div className='Manage'>
@@ -24,7 +24,6 @@ function Side(props) {
         <button className='' onClick={props.handleEditClic}>Edite image</button>
         <button className=''>Gallery</button>
       </div>
-
     </nav>
 
   )

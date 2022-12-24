@@ -9,10 +9,16 @@ import ReactCrop from 'react-image-crop';
 // import Resizer from "react-image-file-resizer"; 
 import 'react-image-crop/dist/ReactCrop.css';
 import storeData from './link';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPicture, incrementAmount } from '../../features/GalerySlice';
 
 
 function PhotoEditor(props) {
 
+    const {galery} = useSelector ((state)=>state.galery)
+
+    const dispatch = useDispatch()
+    const {galeryItems, amount} = useSelector((state)=>state.galery)
     const [size, setSize] = useState({
         height: "",
         width: "",
@@ -35,7 +41,10 @@ function PhotoEditor(props) {
         }
     )
 
-    // const [ImageGallery, setImageGallery] = useState(props.data)
+    const [ImageGallery, setImageGallery] = useState({
+        id:0,
+        imageUrl :''
+    })
 
 const [initialImage,setinitialImage]= useState( {
     image: '',
@@ -176,12 +185,24 @@ const [initialImage,setinitialImage]= useState( {
         )
 
         const link = document.createElement('a')
-        link.download = "image_edit.jpg"
+        // link.download = "image_edit.jpg"
         link.href = canvas.toDataURL()
-        link.click()
+        // link.click()
+
+        setImageGallery ({
+            ...ImageGallery,
+            id: ImageGallery.id +1 ,
+            imageUrl : link.href
+        })
+        dispatch(addPicture(ImageGallery))
+        dispatch(incrementAmount())
+        setImgState(
+            { ...imgstate , image:''}
+        )
     }
 
 
+    console.log(ImageGallery)
     const resetImage = () => {
         setImgState({
             ...imgstate,
@@ -231,7 +252,6 @@ const [initialImage,setinitialImage]= useState( {
                 
                 
                 storeData.insert(imageData)
-                console.log(storeData.current)
             }
             reader.readAsDataURL(e.target.files[0])
         }
@@ -243,7 +263,6 @@ const [initialImage,setinitialImage]= useState( {
                 [e.target.name]: e.target.value,
             }
         )
-        console.log(size)
     }
 
 
