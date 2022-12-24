@@ -17,9 +17,9 @@ function Gallery(props) {
     }
 
 
-    const gallery = galeryItems.map((url,index) => {
+    const gallery = galeryItems.map((url) => {
         return (
-            <div key={index} className='image-container' onClick={() => getImg(url.imageUrl) }>
+            <div key={url.id} className='image-container' onClick={() => getImg(url.imageUrl) }>
                 <img
                     className='singleImage'
                     src={url.imageUrl}
