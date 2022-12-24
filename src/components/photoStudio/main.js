@@ -196,9 +196,6 @@ const [initialImage,setinitialImage]= useState( {
         })
         dispatch(addPicture(ImageGallery))
         dispatch(incrementAmount())
-        setImgState(
-            { ...imgstate , image:''}
-        )
     }
 
 
@@ -336,7 +333,6 @@ const [initialImage,setinitialImage]= useState( {
                     </div>
                     <div className='image-upload'>
                         <label htmlFor='choose' >
-                            Upload image
                             <input
                                 type="file"
                                 id='choose'
