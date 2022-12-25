@@ -3,24 +3,26 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUrl } from '../features/imageSlice';
 
 
 function Gallery(props) {
     const dispatch = useDispatch()
+    const edit = props.handleEditClic
     const {galeryItems, amount} = useSelector((state)=>state.galery)
-    const data = props.imgStore
     const [model, setModel] = useState(false);
     const [tempimgSrc, setTempImgSrc] = useState('')
     const getImg = (image) => {
         setTempImgSrc(image)
-        setModel(true)
+        dispatch(getUrl(image))
+        
     }
 
 
     const gallery = galeryItems.map((url) => {
         return (
-            <div key={url.id} className='image-container' onClick={() => getImg(url.imageUrl) }>
-                <img
+            <div key={url.id} className='image-container' onClick={() => getImg(url.imageUrl)}>
+                <img onClick={props.handleEditClic}
                     className='singleImage'
                     src={url.imageUrl}
                     alt=""
