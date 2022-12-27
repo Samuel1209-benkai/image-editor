@@ -5,13 +5,15 @@ import Side from './components/side';
 import Header from './components/header';
 import Gallery from './components/Gallery'; 
 import 'react-image-crop/dist/ReactCrop.css';
-
+import { useDispatch } from 'react-redux';
+import { deleteUrl } from './features/imageSlice';
 
 
 function App() {
-
+const dispatch = useDispatch()
   const [edit, setEdit] = useState(false)
-  const editClic = () => { setEdit(prevState => !prevState) }
+  const editClic = () => { setEdit(prevState => !prevState) 
+ }
 
       return (
         <div>

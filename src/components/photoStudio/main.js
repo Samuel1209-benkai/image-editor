@@ -22,6 +22,7 @@ console.log(url)
         height: "",
         width: "",
     })
+    const { galeryItems, amount } = useSelector((state) => state.galery)
 
     const [propity, setPropity] = useState(
         {
@@ -42,10 +43,7 @@ console.log(url)
         }
     )
 
-    const [ImageGallery, setImageGallery] = useState({
-        id:0,
-        imageUrl :''
-    })
+
 
 const [initialImage,setinitialImage]= useState( {
     image: url,
@@ -192,10 +190,8 @@ const [initialImage,setinitialImage]= useState( {
         // link.download = "image_edit.jpg"
         link.href = canvas.toDataURL()
         // link.click()
-
-        setImageGallery ({
-            ...ImageGallery,
-            id: ImageGallery.id +1 ,
+         const ImageGallery = ({
+            id: amount ,
             imageUrl : link.href
         })
         dispatch(addPicture(ImageGallery))
@@ -268,9 +264,6 @@ const [initialImage,setinitialImage]= useState( {
     const handleCrop = c => ( setCrop(c) , 
      setIsCrop(true) ) 
 
-
-
-console.log(isCorp);
 
     // Card of editing tool sidebar
     const tool = toolCard.map((items) => {

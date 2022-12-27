@@ -12,9 +12,12 @@ const imageSlice = createSlice({
         getUrl : (state, action)=>{
            state.imgUrl =  action.payload
         },
+        deleteUrl : (state, action)=>{
+            state.imgUrl =  ''
+         },
     }
 })
 
 
-export const {getUrl} = imageSlice.actions
+export const {getUrl,deleteUrl} = imageSlice.actions
 export default imageSlice.reducer
