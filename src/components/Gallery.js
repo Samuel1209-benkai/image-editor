@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark ,faCropSimple,faEye} from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUrl } from '../features/imageSlice';
 import { addPicture, incrementAmount } from '../features/GalerySlice';
@@ -16,7 +16,7 @@ function Gallery(props) {
 
     const getImg = (image) => {
         setTempImgSrc(image)
-        // dispatch(getUrl(image))
+        dispatch(getUrl(image))
     }
 
     const imageHandle = (e) => {
@@ -43,15 +43,30 @@ function Gallery(props) {
                     alt=""
                     style={{ width: "100%" }}
                 />
-                <button onClick={props.handleEditClic} className="hide">edit</button>
+               <div className="hide">
+               <button onClick={props.handleEditClic } className="button-hide" >
+                    <FontAwesomeIcon icon={faCropSimple} onClick={() => getImg(url.imageUrl)} />
+                </button>
+
+                <button onClick={()=>setModel(true)} className="button-hide">
+                    <FontAwesomeIcon icon={faEye} onClick={() => getImg(url.imageUrl)} />
+                </button>
+               </div>
             </div>
         )
     })
     return (
         <>
-            {amount < 1 ? <div className='image-upload' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+            {model?
+        <div className="model-open">
+                    <img src={tempimgSrc} alt='' />
+                    <FontAwesomeIcon icon={faXmark} className="close" onClick={() => { setModel(false) }} />
+                </div>
+        :
+        <>
+        {amount < 1 ? <div className='image-upload' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                 <div className='editor'>
-                    <div className='image-view' style={{ backgroundColor: 'white' }}>
+                    <div className='image-view-Galery'>
                         <div className='image'>
                             <label htmlFor='choose'> <h1>Your Galery</h1>
                                 <p>is currently empry</p>
@@ -71,13 +86,12 @@ function Gallery(props) {
                         </div>
                     </div></div>
                 </div>
-                : <div><div className={model ? "model-open" : "model"}>
-                    <img src={tempimgSrc} alt='' />
-                    <FontAwesomeIcon icon={faXmark} className="close" onClick={() => { setModel(false) }} />
-                </div>
+                : <div>
                     <div className='gallery-container'>
                         {gallery}
                     </div></div>}
+                    </>}
+        
         </>
     )
 }

@@ -25,8 +25,7 @@ function Side(props) {
   return (
     <nav>
       <div className="upload-button">
-        <div>
-          <label htmlFor='chooseimg' >
+          <label htmlFor='chooseimg'>
             Upload Media
             <input className='image-upload'
               type="file"
@@ -35,8 +34,8 @@ function Side(props) {
               onChange={imageHandle}
             />
           </label>
-        </div>
       </div>
+      
       <div className='Manage'>
         <p aria-disabled >MANAGE</p>
         <button className='' onClick={props.handleEditClic }>Edite image</button>
