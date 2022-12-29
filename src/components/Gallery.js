@@ -5,12 +5,15 @@ import { faXmark ,faCropSimple,faEye} from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUrl } from '../features/imageSlice';
 import { addPicture, incrementAmount } from '../features/GalerySlice';
+import { select,unselect } from '../features/selectSlice';
 
 
 function Gallery(props) {
     const dispatch = useDispatch()
     const edit = props.handleEditClic
     const { galeryItems, amount } = useSelector((state) => state.galery)
+    const { selected , imgSelectedUrl } = useSelector((state) => state.galery)
+
     const [model, setModel] = useState(false);
     const [tempimgSrc, setTempImgSrc] = useState('')
 
@@ -41,13 +44,12 @@ function Gallery(props) {
                     className='singleImage'
                     src={url.imageUrl}
                     alt=""
-                    style={{ width: "100%" }}
+                    style={{ width: "100%"  , border: selected?"1px solid ":"none"}}
                 />
                <div className="hide">
                <button onClick={props.handleEditClic } className="button-hide" >
                     <FontAwesomeIcon icon={faCropSimple} onClick={() => getImg(url.imageUrl)} />
                 </button>
-
                 <button onClick={()=>setModel(true)} className="button-hide">
                     <FontAwesomeIcon icon={faEye} onClick={() => getImg(url.imageUrl)} />
                 </button>
@@ -64,13 +66,13 @@ function Gallery(props) {
                 </div>
         :
         <>
-        {amount < 1 ? <div className='image-upload' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        {amount < 1 ? <div className='image-upload' style={{ display: 'flex', marginTop:  "50px",flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                 <div className='editor'>
                     <div className='image-view-Galery'>
                         <div className='image'>
                             <label htmlFor='choose'> <h1>Your Galery</h1>
                                 <p>is currently empry</p>
-                                <div className='upload-button'>
+                                <div className='upload-button' style={{ margin: "30px 5px" }}>
                                     Upload Media
                                 </div></label>
                         </div>

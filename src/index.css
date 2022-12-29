@@ -269,7 +269,6 @@ nav{
 .upload-button{
   display: flex;
   font-weight:600;
-  margin: 30px 5px;
   border-radius: 50px;
   padding: 10px 20px;
   width: 150px;

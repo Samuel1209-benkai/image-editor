@@ -278,7 +278,7 @@ const [initialImage,setinitialImage]= useState( {
             {/* header */}
             <div className='editor-head'>
                 <div className='head-right-items'>
-                    <button onClick={props.handleEditClic}><FontAwesomeIcon icon={faXmark} size="xl" /></button>
+                    <button onClick={()=>{setImgState({...imgstate,image:''})}}><FontAwesomeIcon icon={faXmark} size="xl" /></button>
                     <h3>Photo Studio</h3>
                 </div>
                 <div className='head-left-items'>
@@ -290,7 +290,7 @@ const [initialImage,setinitialImage]= useState( {
                         <button onClick={next}><RiArrowGoForwardFill className='aiOutlineCloseButton space' /></button>
                     </div>
                     <div>
-                        <button className='cancel-button' onClick={()=>{setImgState({...imgstate,image:''})}} >Cancel</button>
+                        <button className='cancel-button'  onClick={props.handleEditClic} >Cancel</button>
                         <button className='Save-button' onClick={saveImage}> Save</button>
                     </div>
                 </div>
