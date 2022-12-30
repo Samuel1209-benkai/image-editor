@@ -1,47 +1,47 @@
 class node {
-    constructor(data){
+    constructor(data) {
         this.data = data;
         this.next = null
-        this.prev = null  
-       }
+        this.prev = null
+    }
 }
 
 
-class linkList{
-    constructor(){
-        this.head = null 
-        this.current = null 
+class linkList {
+    constructor() {
+        this.head = null
+        this.current = null
     }
 
-    insert(data){
+    insert(data) {
         let newNode = new node(data)
-       if (this.head === null){
-        this.head = newNode
-        this.current = newNode
-       } else{
-        let temp = this.head
-        while(temp.next !== null ){
-            temp = temp.next
+        if (this.head === null) {
+            this.head = newNode
+            this.current = newNode
+        } else {
+            let temp = this.head
+            while (temp.next !== null) {
+                temp = temp.next
+            }
+            temp.next = newNode
+            newNode.prev = temp
+            this.current = newNode
         }
-        temp.next= newNode
-        newNode.prev = temp
-        this.current = newNode
-       }
     }
 
-    prevEdit(){
+    prevEdit() {
         const prevData = this.current.prev
-        if (prevData){
+        if (prevData) {
             this.current = prevData
             return prevData.data
         }
     }
-    nextEdit(){
+    nextEdit() {
         const nextData = this.current.next
-        if (nextData){
+        if (nextData) {
             this.current = nextData
             return nextData.data
-        }else {
+        } else {
             return null
         }
     }

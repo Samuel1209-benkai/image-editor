@@ -17,14 +17,14 @@ import { addPicture, incrementAmount } from '../../features/GalerySlice';
 
 function PhotoEditor(props) {
 
-    const url = useSelector( state => state.image.imgUrl)
-    const {  imgSelectedUrl } = useSelector((state) => state.select)  
+    const url = useSelector(state => state.image.imgUrl)
+
     const dispatch = useDispatch()
     const [size, setSize] = useState({
         height: "",
         width: "",
     })
-    const { galeryItems, amount } = useSelector((state) => state.galery)
+    const { amount } = useSelector((state) => state.galery)
 
     const [propity, setPropity] = useState(
         {
@@ -47,15 +47,15 @@ function PhotoEditor(props) {
 
 
 
-const [initialImage,setinitialImage]= useState( {
-    image: url,
-    Brightness: 100,
-    Contrast: 100,
-    Saturate: 100,
-    rotate: 0,
-    vertical: 1,
-    horizontal: 1,
-})
+    const [initialImage, setinitialImage] = useState({
+        image: url,
+        Brightness: 100,
+        Contrast: 100,
+        Saturate: 100,
+        rotate: 0,
+        vertical: 1,
+        horizontal: 1,
+    })
     const [crop, setCrop] = useState(''
         // Start with initial crop but i have one probleme with this methode i resolve it later 
         //  ({
@@ -67,7 +67,7 @@ const [initialImage,setinitialImage]= useState( {
         //   })
     );
 
-    const [isCorp ,setIsCrop] = useState(false)
+    const [isCorp, setIsCrop] = useState(false)
 
     const [detail, setDetail] = useState()
 
@@ -81,7 +81,7 @@ const [initialImage,setinitialImage]= useState( {
         const imageData = imgstate
         imageData.rotate = imgstate.rotate - 90
         storeData.insert(imageData)
-        
+
     }
 
     const rightRotate = () => {
@@ -144,7 +144,7 @@ const [initialImage,setinitialImage]= useState( {
             image: base64Url,
         })
         const imageData = imgstate
-        imageData.image = imgstate.image 
+        imageData.image = imgstate.image
         storeData.insert(imageData)
 
         setCrop(0);
@@ -192,12 +192,12 @@ const [initialImage,setinitialImage]= useState( {
         // link.download = "image_edit.jpg"
         link.href = canvas.toDataURL()
         // link.click()
-         const ImageGallery = ({
-            id: amount ,
-            imageUrl : link.href
+        const ImageGallery = ({
+            id: amount,
+            imageUrl: link.href
         })
         dispatch(addPicture(ImageGallery))
-        dispatch (select(ImageGallery.imageUrl));
+        dispatch(select(ImageGallery.imageUrl));
         dispatch(incrementAmount())
         props.handleEditClic()
     }
@@ -206,7 +206,7 @@ const [initialImage,setinitialImage]= useState( {
     const resetImage = () => {
         setImgState({
             ...imgstate,
-            image:initialImage.image,
+            image: initialImage.image,
             Brightness: 100,
             Contrast: 100,
             Saturate: 100,
@@ -235,11 +235,12 @@ const [initialImage,setinitialImage]= useState( {
                     ...imgstate,
                     image: reader.result
                 })
-                setinitialImage({ 
+                setinitialImage({
                     ...initialImage,
-                    image:reader.result}
-                    )
-                    const imageData = {
+                    image: reader.result
+                }
+                )
+                const imageData = {
                     image: reader.result,
                     Brightness: 100,
                     Contrast: 100,
@@ -248,8 +249,8 @@ const [initialImage,setinitialImage]= useState( {
                     vertical: 1,
                     horizontal: 1,
                 }
-                
-                
+
+
                 storeData.insert(imageData)
             }
             reader.readAsDataURL(e.target.files[0])
@@ -264,14 +265,15 @@ const [initialImage,setinitialImage]= useState( {
         )
     }
 
-    const handleCrop = c => ( setCrop(c) , setIsCrop(true) ) 
+    // eslint-disable-next-line no-sequences
+    const handleCrop = c => (setCrop(c), setIsCrop(true))
 
 
     // Card of editing tool sidebar
     const tool = toolCard.map((items) => {
         return (
             <button className={propity.name === items.name ? 'active' : ''}
-                key={items.id} disabled = {isCorp} onClick={() => setPropity(items)}>{items.icone} {items.name} </button>
+                key={items.id} disabled={isCorp} onClick={() => setPropity(items)}>{items.icone} {items.name} </button>
         )
     })
 
@@ -280,7 +282,7 @@ const [initialImage,setinitialImage]= useState( {
             {/* header */}
             <div className='editor-head'>
                 <div className='head-right-items'>
-                    <button onClick={()=>{setImgState({...imgstate,image:''})}}><FontAwesomeIcon icon={faXmark} size="xl" /></button>
+                    <button onClick={() => { setImgState({ ...imgstate, image: '' }) }}><FontAwesomeIcon icon={faXmark} size="xl" /></button>
                     <h3>Photo Studio</h3>
                 </div>
                 <div className='head-left-items'>
@@ -292,7 +294,7 @@ const [initialImage,setinitialImage]= useState( {
                         <button onClick={next}><RiArrowGoForwardFill className='aiOutlineCloseButton space' /></button>
                     </div>
                     <div>
-                        <button className='cancel-button'  onClick={props.handleEditClic} >Cancel</button>
+                        <button className='cancel-button' onClick={props.handleEditClic} >Cancel</button>
                         <button className='Save-button' onClick={saveImage}> Save</button>
                     </div>
                 </div>
@@ -308,84 +310,84 @@ const [initialImage,setinitialImage]= useState( {
                     </div>
                     <div className='bottom-tool-items' >
                         <h4>Rotate anf Flip</h4>
-                        <button className='rotate-button' onClick={leftRotate}  disabled = {isCorp} > <AiOutlineRotateLeft /></button>
-                        <button className='rotate-button r-button' onClick={rightRotate}  disabled = {isCorp}> <AiOutlineRotateRight /></button>
-                        <button className='rotate-button r-button' onClick={verticalFlip}  disabled = {isCorp}> <CgEditFlipH /></button>
-                        <button className='rotate-button r-button' onClick={horizontalFlip}  disabled = {isCorp}> <CgEditFlipV /></button>
+                        <button className='rotate-button' onClick={leftRotate} disabled={isCorp} > <AiOutlineRotateLeft /></button>
+                        <button className='rotate-button r-button' onClick={rightRotate} disabled={isCorp}> <AiOutlineRotateRight /></button>
+                        <button className='rotate-button r-button' onClick={verticalFlip} disabled={isCorp}> <CgEditFlipH /></button>
+                        <button className='rotate-button r-button' onClick={horizontalFlip} disabled={isCorp}> <CgEditFlipV /></button>
                     </div>
                 </div>
                 {/* image-editor-view */}
                 <div className='editor'>
-                <div className='image-view'>
-                    <div className='image'>
-                        {
-                            imgstate.image ?
-                                <div>
-                                    { propity.name ==='crop and resize'? <ReactCrop crop={crop} onChange={handleCrop}  >
-                                    <img onLoad={(e) => setDetail(e.currentTarget)}
-                                        style={{
-                                            filter: `brightness(${imgstate.Brightness}%)
+                    <div className='image-view'>
+                        <div className='image'>
+                            {
+                                imgstate.image ?
+                                    <div>
+                                        {propity.name === 'crop and resize' ? <ReactCrop crop={crop} onChange={handleCrop}  >
+                                            <img onLoad={(e) => setDetail(e.currentTarget)}
+                                                style={{
+                                                    filter: `brightness(${imgstate.Brightness}%)
                             contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`,
-                                            transform: `rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
-                                            height: `${size.height}px`,
-                                            width: `${size.width}px`,
-                                        }} src={imgstate.image} alt='imge' />
-                                </ReactCrop>:
-                                <img onLoad={(e) => setDetail(e.currentTarget)}
-                                style={{
-                                    filter: `brightness(${imgstate.Brightness}%)
+                                                    transform: `rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
+                                                    height: `${size.height}px`,
+                                                    width: `${size.width}px`,
+                                                }} src={imgstate.image} alt='imge' />
+                                        </ReactCrop> :
+                                            <img onLoad={(e) => setDetail(e.currentTarget)}
+                                                style={{
+                                                    filter: `brightness(${imgstate.Brightness}%)
                     contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`,
-                                    transform: `rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
-                                    height: `${size.height}px`,
-                                    width: `${size.width}px`,
-                                }} src={imgstate.image} alt='imge' />}
-                                </div> :
-                                <label htmlFor='choose'> Choose image</label>
-                        }
+                                                    transform: `rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
+                                                    height: `${size.height}px`,
+                                                    width: `${size.width}px`,
+                                                }} src={imgstate.image} alt='imge' />}
+                                    </div> :
+                                    <label htmlFor='choose'> Choose image</label>
+                            }
+                        </div>
+                        <div className='image-upload'>
+                            <label htmlFor='choose' >
+                                <input
+                                    type="file"
+                                    id='choose'
+                                    placeholder=''
+                                    onChange={imageHandle} />
+                            </label>
+                        </div>
                     </div>
-                    <div className='image-upload'>
-                        <label htmlFor='choose' >
-                            <input
-                                type="file"
-                                id='choose'
-                                placeholder=''
-                                onChange={imageHandle} />
-                        </label>
+                    {/* tool-proprity */}
+                    <div className='crop-resize'>
+                        {propity.name === "crop and resize" ? <div><h4>Crop and Resize</h4> <div className='crop-and-resize'>
+
+                            <div className='crop-prop' >
+                                <h5>Crop: </h5>
+                                <button className='crop-button' onClick={imageCrop}> Crop image </button>
+                            </div>
+                            <div className='resize-prop' style={{ display: "none" }}>
+                                <h5>Images size (px)</h5>
+                                <form className='size-form'>
+                                    <label className='width-label'>
+                                        w : <input name="width" value={size.width} onChange={sizeHandleChange} className='size' type="text" />
+                                    </label>
+                                    <label className='heigth-label'>
+                                        H : <input name="height" value={size.height} onChange={sizeHandleChange} className='size' type="text" />
+                                    </label>
+                                    <button className="resize-button">Resize image</button>
+                                </form>
+                            </div>
+                        </div></div> :
+                            <div className='label-bar'>
+                                <label htmlFor='range'>{propity.name}</label>
+                                <input name={propity.name}
+                                    onChange={inputHandle}
+                                    disabled={isCorp}
+                                    type="range"
+                                    value={imgstate[propity.name]}
+                                    max={propity.maxValue} />
+                            </div>}
                     </div>
                 </div>
-             {/* tool-proprity */}
-             <div className='crop-resize'>
-                    {propity.name === "crop and resize" ?<div><h4>Crop and Resize</h4> <div className='crop-and-resize'>
-                        
-                        <div className='crop-prop' >
-                            <h5>Crop: </h5>
-                            <button className='crop-button' onClick={imageCrop}> Crop image </button>
-                        </div>
-                        <div className='resize-prop' style={{ display: "none"}}>
-                            <h5>Images size (px)</h5>
-                            <form className='size-form'>
-                                <label className='width-label'>
-                                    w : <input name="width" value={size.width} onChange={sizeHandleChange} className='size' type="text" />
-                                </label>
-                                <label className='heigth-label'>
-                                    H : <input name="height" value={size.height} onChange={sizeHandleChange} className='size' type="text" />
-                                </label>
-                                <button className="resize-button">Resize image</button>
-                            </form>
-                        </div>
-                    </div></div> :
-                        <div className='label-bar'>
-                            <label htmlFor='range'>{propity.name}</label>
-                            <input name={propity.name}
-                                onChange={inputHandle}
-                                disabled = {isCorp}
-                                type="range"
-                                value={imgstate[propity.name]}
-                                max={propity.maxValue} />
-                        </div>}
-                    </div>
-                                </div>
-                </div>
+            </div>
         </div>
     )
 }
