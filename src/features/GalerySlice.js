@@ -11,7 +11,6 @@ const galerySlice = createSlice({
     initialState,
     reducers: {
         addPicture: (state, action) => {
-            console.log(action)
             state.galeryItems.push(action.payload)
         },
 

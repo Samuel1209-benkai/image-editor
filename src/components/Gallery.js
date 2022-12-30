@@ -32,6 +32,7 @@ function Gallery(props) {
                     id: amount,
                     imageUrl: reader.result
                 })
+        dispatch(select(ImageGallery.imageUrl));
                 dispatch(addPicture(ImageGallery))
                 dispatch(incrementAmount())
             }
@@ -39,7 +40,6 @@ function Gallery(props) {
         }
     }
 
-    console.log(imgSelectedUrl)
     const gallery = galeryItems.map((url) => {
         return (
             <div key={url.id} className='image-container' onClick={() => getImg(url.imageUrl)}>

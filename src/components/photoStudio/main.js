@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineRotateLeft, AiOutlineRotateRight } from 'react-icons/ai';
 import { CgEditFlipH, CgEditFlipV } from 'react-icons/cg';
 import { RiArrowGoBackFill, RiArrowGoForwardFill } from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { select } from '../../features/selectSlice';
-
 import { toolCard } from './toolCard';
 import ReactCrop from 'react-image-crop';
-// import Resizer from "react-image-file-resizer"; 
 import 'react-image-crop/dist/ReactCrop.css';
 import storeData from './link';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +30,6 @@ function PhotoEditor(props) {
             maxValue: 200,
         },)
 
-
     const [imgstate, setImgState] = useState(
         {
             image: url,
@@ -44,8 +41,6 @@ function PhotoEditor(props) {
             horizontal: 1,
         }
     )
-
-
 
     const [initialImage, setinitialImage] = useState({
         image: url,
@@ -66,9 +61,7 @@ function PhotoEditor(props) {
         //     height: 100
         //   })
     );
-
     const [isCorp, setIsCrop] = useState(false)
-
     const [detail, setDetail] = useState()
 
     // tool function 
@@ -81,7 +74,6 @@ function PhotoEditor(props) {
         const imageData = imgstate
         imageData.rotate = imgstate.rotate - 90
         storeData.insert(imageData)
-
     }
 
     const rightRotate = () => {
@@ -89,7 +81,6 @@ function PhotoEditor(props) {
             ...imgstate,
             rotate: imgstate.rotate + 90
         })
-
         const imageData = imgstate
         imageData.rotate = imgstate.rotate + 90
         storeData.insert(imageData)
@@ -104,20 +95,17 @@ function PhotoEditor(props) {
         imageData.vertical = imgstate.vertical === 1 ? -1 : 1
         storeData.insert(imageData)
     }
-
     const horizontalFlip = () => {
         setImgState({
             ...imgstate,
             horizontal: imgstate.horizontal === 1 ? -1 : 1
         })
-
         const imageData = imgstate
         imageData.horizontal = imgstate.horizontal === 1 ? -1 : 1
         storeData.insert(imageData)
     }
 
     //crop 
-
     const imageCrop = () => {
         const canvas = document.createElement('canvas');
         const scaleX = detail.naturalWidth / detail.width
@@ -125,7 +113,6 @@ function PhotoEditor(props) {
         canvas.width = crop.width
         canvas.height = crop.height
         const ctx = canvas.getContext('2d')
-
         ctx.drawImage(
             detail,
             crop.x * scaleX,
@@ -136,9 +123,7 @@ function PhotoEditor(props) {
             crop.width,
             crop.height
         )
-
         const base64Url = canvas.toDataURL('image/jpg');
-
         setImgState({
             ...imgstate,
             image: base64Url,
@@ -146,12 +131,20 @@ function PhotoEditor(props) {
         const imageData = imgstate
         imageData.image = imgstate.image
         storeData.insert(imageData)
-
         setCrop(0);
         setIsCrop(false)
-
     }
+    //keyListerner
+    useEffect(()=>{
+        document.addEventListener('keydown' , imageCrop , true )
+    },[])
 
+    const keyClick =(e)=>{
+console.log( e.key)
+if(e.key === "Enter"){
+    imageCrop()
+}
+    }
 
     // prev next state , reset and save function 
     const previous = () => {
@@ -177,7 +170,7 @@ function PhotoEditor(props) {
         ctx.filter = `brightness(${imgstate.Brightness}%)
     contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
         ctx.translate = (canvas.width / 2, canvas.height / 2)
-        ctx.rotate(imgstate.rotate * Math.PI / 100)
+        ctx.rotate(imgstate.rotate * Math.PI / 1000)
         ctx.scale(imgstate.vertical, imgstate.horizontal)
 
         ctx.drawImage(
@@ -187,7 +180,6 @@ function PhotoEditor(props) {
             canvas.width,
             canvas.height
         )
-
         const link = document.createElement('a')
         // link.download = "image_edit.jpg"
         link.href = canvas.toDataURL()
@@ -249,8 +241,6 @@ function PhotoEditor(props) {
                     vertical: 1,
                     horizontal: 1,
                 }
-
-
                 storeData.insert(imageData)
             }
             reader.readAsDataURL(e.target.files[0])
@@ -282,7 +272,6 @@ function PhotoEditor(props) {
             {/* header */}
             <div className='editor-head'>
                 <div className='head-right-items'>
-                    <button onClick={() => { setImgState({ ...imgstate, image: '' }) }}><FontAwesomeIcon icon={faXmark} size="xl" /></button>
                     <h3>Photo Studio</h3>
                 </div>
                 <div className='head-left-items'>

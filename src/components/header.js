@@ -3,6 +3,8 @@ import React from 'react'
 // import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPicture, incrementAmount } from '../features/GalerySlice';
+import { select } from '../features/selectSlice';
+
 
 function Header() {
 
@@ -18,6 +20,8 @@ function Header() {
         })
         dispatch(addPicture(ImageGallery))
         dispatch(incrementAmount())
+        dispatch(select(ImageGallery.imageUrl));
+
       }
       reader.readAsDataURL(e.target.files[0])
     }
@@ -28,7 +32,7 @@ function Header() {
         <h3>Image Editor</h3>
       </div>
       <div className="upload-button">
-        <label htmlFor='chooseimg'>
+        <label htmlFor='chooseimg' style={{ cursor:"pointer" }}>
           Upload Media
           <input className='image-upload'
             type="file"
