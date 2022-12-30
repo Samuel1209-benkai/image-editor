@@ -4,6 +4,8 @@ import { CgEditFlipH, CgEditFlipV } from 'react-icons/cg';
 import { RiArrowGoBackFill, RiArrowGoForwardFill } from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { select } from '../../features/selectSlice';
+
 import { toolCard } from './toolCard';
 import ReactCrop from 'react-image-crop';
 // import Resizer from "react-image-file-resizer"; 
@@ -16,7 +18,7 @@ import { addPicture, incrementAmount } from '../../features/GalerySlice';
 function PhotoEditor(props) {
 
     const url = useSelector( state => state.image.imgUrl)
-console.log(url)
+    const {  imgSelectedUrl } = useSelector((state) => state.select)  
     const dispatch = useDispatch()
     const [size, setSize] = useState({
         height: "",
@@ -195,7 +197,9 @@ const [initialImage,setinitialImage]= useState( {
             imageUrl : link.href
         })
         dispatch(addPicture(ImageGallery))
+        dispatch (select(ImageGallery.imageUrl));
         dispatch(incrementAmount())
+        props.handleEditClic()
     }
 
 
@@ -226,7 +230,6 @@ const [initialImage,setinitialImage]= useState( {
     const imageHandle = (e) => {
         if (e.target.files.length !== 0) {
             const reader = new FileReader()
-
             reader.onload = () => {
                 setImgState({
                     ...imgstate,
@@ -261,8 +264,7 @@ const [initialImage,setinitialImage]= useState( {
         )
     }
 
-    const handleCrop = c => ( setCrop(c) , 
-     setIsCrop(true) ) 
+    const handleCrop = c => ( setCrop(c) , setIsCrop(true) ) 
 
 
     // Card of editing tool sidebar

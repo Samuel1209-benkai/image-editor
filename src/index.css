@@ -167,7 +167,8 @@ margin-right: 10px;
 .editor{
   display: flex;
   flex-direction: column;
-  width: 82%;
+  width: 80%;
+  overflow: hidden;
 }
 
 .image{
@@ -316,6 +317,7 @@ opacity: 0.5 ;
   height: 90vh;
   width: 100%;
   overflow: scroll;
+  overflow-x: hidden;
 -webkit-column-count: 3;
 -moz-column-count: 3;
 column-count: 3;
@@ -386,15 +388,15 @@ grid-template-columns: auto auto auto ;
   justify-content: center;
   height: 90vh;
   width: 100%;
+  overflow-x: hidden;
   overflow: scroll;
 display: grid;
 grid-template-columns: auto auto auto ;
- 
 }
 
 .model img{
   width: 200px;
-  height: 200px;
+  height: 200px;  
 }
 
 .model-open .close{
