@@ -32,7 +32,6 @@ function Gallery(props) {
                     id: amount,
                     imageUrl: reader.result
                 })
-        dispatch(select(ImageGallery.imageUrl));
                 dispatch(addPicture(ImageGallery))
                 dispatch(incrementAmount())
             }
