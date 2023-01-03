@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AiOutlineRotateLeft, AiOutlineRotateRight } from 'react-icons/ai';
 import { CgEditFlipH, CgEditFlipV } from 'react-icons/cg';
 import { RiArrowGoBackFill, RiArrowGoForwardFill } from 'react-icons/ri';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { select } from '../../features/selectSlice';
 import { toolCard } from './toolCard';
 import ReactCrop from 'react-image-crop';

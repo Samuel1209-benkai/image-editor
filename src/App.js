@@ -6,7 +6,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 
 
 function App() {
-  const [edit, setEdit] = useState(true)
+  const [edit, setEdit] = useState(false)
   const editClic = () => {
     setEdit(prevState => !prevState)
   }
