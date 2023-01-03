@@ -11,12 +11,12 @@ import 'react-image-crop/dist/ReactCrop.css';
 import storeData from './link';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPicture, incrementAmount } from '../../features/GalerySlice';
+import { useOnKeyPress } from '../keypress';
 
 
 function PhotoEditor(props) {
 
     const url = useSelector(state => state.image.imgUrl)
-
     const dispatch = useDispatch()
     const [size, setSize] = useState({
         height: "",
@@ -62,7 +62,7 @@ function PhotoEditor(props) {
         //   })
     );
     const [isCorp, setIsCrop] = useState(false)
-    const [detail, setDetail] = useState()
+    const [detail, setDetail] = useState('')
 
     // tool function 
     // rotate
@@ -135,16 +135,7 @@ function PhotoEditor(props) {
         setIsCrop(false)
     }
     //keyListerner
-    useEffect(()=>{
-        document.addEventListener('keydown' , imageCrop , true )
-    },[])
-
-    const keyClick =(e)=>{
-console.log( e.key)
-if(e.key === "Enter"){
-    imageCrop()
-}
-    }
+    useOnKeyPress(imageCrop , 'Enter')
 
     // prev next state , reset and save function 
     const previous = () => {
@@ -162,28 +153,26 @@ if(e.key === "Enter"){
     }
 
     const saveImage = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = detail.naturalWidth
-        canvas.height = detail.naturalHeight
-        const ctx = canvas.getContext('2d')
+        const Canvas = document.createElement('canvas');
+        Canvas.width = detail.naturalWidth
+        Canvas.height = detail.naturalHeight
+        const Ctx = Canvas.getContext('2d')
 
-        ctx.filter = `brightness(${imgstate.Brightness}%)
-    contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
-        ctx.translate = (canvas.width / 2, canvas.height / 2)
-        ctx.rotate(imgstate.rotate * Math.PI / 1000)
-        ctx.scale(imgstate.vertical, imgstate.horizontal)
+        Ctx.filter = `brightness(${imgstate.Brightness}%)
+contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
+        Ctx.translate = (Canvas.width / 2, Canvas.height / 2)
+        Ctx.scale(imgstate.vertical, imgstate.horizontal)
 
-        ctx.drawImage(
+        Ctx.drawImage(
             detail,
-            -canvas.width / 1000,
-            -canvas.height / 1000,
-            canvas.width,
-            canvas.height
+            -Canvas.width / 1000,
+            -Canvas.height / 1000,
+            Canvas.width,
+            Canvas.height
         )
         const link = document.createElement('a')
         // link.download = "image_edit.jpg"
-        link.href = canvas.toDataURL()
-        // link.click()
+        link.href = Canvas.toDataURL()
         const ImageGallery = ({
             id: amount,
             imageUrl: link.href
@@ -254,7 +243,6 @@ if(e.key === "Enter"){
             }
         )
     }
-
     // eslint-disable-next-line no-sequences
     const handleCrop = c => (setCrop(c), setIsCrop(true))
 
@@ -347,10 +335,9 @@ if(e.key === "Enter"){
                     {/* tool-proprity */}
                     <div className='crop-resize'>
                         {propity.name === "crop and resize" ? <div><h4>Crop and Resize</h4> <div className='crop-and-resize'>
-
                             <div className='crop-prop' >
                                 <h5>Crop: </h5>
-                                <button className='crop-button' onClick={imageCrop}> Crop image </button>
+                                <button className='crop-button' onClick={imageCrop} > Crop image </button>
                             </div>
                             <div className='resize-prop' style={{ display: "none" }}>
                                 <h5>Images size (px)</h5>
