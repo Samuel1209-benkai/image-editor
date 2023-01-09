@@ -36,6 +36,8 @@ function PhotoEditor(props) {
             Brightness: 100,
             Contrast: 100,
             Saturate: 100,
+            Inversion:0,
+            Grayscale:0,
             rotate: 0,
             vertical: 1,
             horizontal: 1,
@@ -47,6 +49,8 @@ function PhotoEditor(props) {
         Brightness: 100,
         Contrast: 100,
         Saturate: 100,
+        // Inversion:0,
+        // Grayscale:0,
         rotate: 0,
         vertical: 1,
         horizontal: 1,
@@ -153,26 +157,28 @@ function PhotoEditor(props) {
     }
 
     const saveImage = () => {
-        const Canvas = document.createElement('canvas');
-        Canvas.width = detail.naturalWidth
-        Canvas.height = detail.naturalHeight
-        const Ctx = Canvas.getContext('2d')
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')
+        canvas.width = detail.naturalWidth
+        canvas.height = detail.naturalHeight
 
-        Ctx.filter = `brightness(${imgstate.Brightness}%)
-contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
-        Ctx.translate = (Canvas.width / 2, Canvas.height / 2)
-        Ctx.scale(imgstate.vertical, imgstate.horizontal)
-
-        Ctx.drawImage(
+        ctx.filter = `brightness(${imgstate.Brightness}%)
+        contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
+        console.log(detail.height , detail.width)
+        ctx.scale(1,1)
+        ctx.translate = (canvas.width / 2, canvas.height / 2)
+        ctx.rotate(imgstate.rotate * Math.PI /180) 
+    //
+        ctx.drawImage(
             detail,
-            -Canvas.width / 1000,
-            -Canvas.height / 1000,
-            Canvas.width,
-            Canvas.height
+            -canvas.width / 1000,
+            -canvas.height / 1000,
+            canvas.width,
+            canvas.height
         )
         const link = document.createElement('a')
         // link.download = "image_edit.jpg"
-        link.href = Canvas.toDataURL()
+        link.href = canvas.toDataURL()
         const ImageGallery = ({
             id: amount,
             imageUrl: link.href
@@ -191,6 +197,8 @@ contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
             Brightness: 100,
             Contrast: 100,
             Saturate: 100,
+            Inversion:0,
+            Grayscale:0,
             rotate: 0,
             vertical: 1,
             horizontal: 1,
@@ -226,6 +234,8 @@ contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
                     Brightness: 100,
                     Contrast: 100,
                     Saturate: 100,
+                    Inversion:0,
+                    Grayscale:0,
                     rotate: 0,
                     vertical: 1,
                     horizontal: 1,
@@ -284,7 +294,7 @@ contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
                     <h3>Editing tools</h3>
                     <div className='top-tool-items'>
                         {tool}
-                    </div>
+                    </div> 
                     <div className='bottom-tool-items' >
                         <h4>Rotate anf Flip</h4>
                         <button className='rotate-button' onClick={leftRotate} disabled={isCorp} > <AiOutlineRotateLeft /></button>
@@ -304,8 +314,8 @@ contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
                                             <img onLoad={(e) => setDetail(e.currentTarget)}
                                                 style={{
                                                     filter: `brightness(${imgstate.Brightness}%)
-                            contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`,
-                                                    transform: `rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
+                            contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%) invert(${imgstate.Inversion}) grayscale(${imgstate.Grayscale})` ,
+                                                    transform:`rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
                                                     height: `${size.height}px`,
                                                     width: `${size.width}px`,
                                                 }} src={imgstate.image} alt='imge' />
@@ -313,13 +323,13 @@ contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
                                             <img onLoad={(e) => setDetail(e.currentTarget)}
                                                 style={{
                                                     filter: `brightness(${imgstate.Brightness}%)
-                    contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`,
+                    contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)  invert(${imgstate.Inversion}) grayscale(${imgstate.Grayscale})`,
                                                     transform: `rotate(${imgstate.rotate}deg) scale(${imgstate.vertical},${imgstate.horizontal})`,
                                                     height: `${size.height}px`,
                                                     width: `${size.width}px`,
                                                 }} src={imgstate.image} alt='imge' />}
                                     </div> :
-                                    <label htmlFor='choose'> Choose image</label>
+                                    <label htmlFor='choose' style={{ height:"75vh" }}> Choose image</label>
                             }
                         </div>
                         <div className='image-upload'>
@@ -353,7 +363,7 @@ contrast(${imgstate.Contrast}%) saturate(${imgstate.Saturate}%)`
                             </div>
                         </div></div> :
                             <div className='label-bar'>
-                                <label htmlFor='range'>{propity.name}</label>
+                                <label htmlFor='range' style={{display:'flex' ,  justifyContent:'space-between'}}> <span>{propity.name} </span> <span>{imgstate[propity.name]} %</span></label>
                                 <input name={propity.name}
                                     onChange={inputHandle}
                                     disabled={isCorp}

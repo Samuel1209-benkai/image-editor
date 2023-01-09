@@ -33,6 +33,7 @@ function Gallery(props) {
                     imageUrl: reader.result
                 })
                 dispatch(addPicture(ImageGallery))
+                dispatch(select(ImageGallery.imageUrl))
                 dispatch(incrementAmount())
             }
             reader.readAsDataURL(e.target.files[0])
@@ -71,9 +72,9 @@ function Gallery(props) {
                 <>
                     {amount < 1 ? <div className='image-upload' style={{ display: 'flex', marginTop: "50px", flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                         <div className='editor'>
-                            <div className='image-view-Galery'>
+                            <div className='image-view-Galery'  style={{ marginLeft:"20px" ,   marginRight: "30px" }}>
                                 <div className='image'>
-                                    <label htmlFor='choose'> <h1>Your Galery</h1>
+                                    <label htmlFor='choose' style={{ height:"70vh"   }}> <h1>Your Galery</h1>
                                         <p>is currently empry</p>
                                         <div className='upload-button' style={{ margin: "30px 5px" }}>
                                             Upload Media

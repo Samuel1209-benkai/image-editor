@@ -26,5 +26,17 @@ export const toolCard = [
         name: "Saturate",
         maxValue: 200,
         icone: <RiContrastDropFill className='icon-space' />
-    }
+    },
+    // {
+    //     id: 5,
+    //     name: "Inversion",
+    //     maxValue: 100,
+    //     icone: <RiContrastDropFill className='icon-space' />
+    // },
+    // {
+    //     id: 6,
+    //     name: "Grayscale",
+    //     maxValue: 100,
+    //     icone: <RiContrastDropFill className='icon-space' />
+    // },
 ]
